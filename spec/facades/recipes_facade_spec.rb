@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe RecipesFacade do
   describe 'Recipe' do
     describe '#recipe_index' do
-      it 'can return recipes as objects' do
+      it 'can return recipes as objects', :vcr do
         country = 'thailand'
 
         recipes = RecipesFacade.new.recipes_index(country)
