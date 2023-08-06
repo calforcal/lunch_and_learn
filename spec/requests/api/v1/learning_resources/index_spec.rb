@@ -25,6 +25,9 @@ RSpec.describe "Learning Resources" do
 
         attributes = resource[:attributes]
 
+        expect(attributes).to_not have_key(:etag)
+        expect(attributes).to_not have_key(:kind)
+
         expect(attributes).to have_key(:country)
         expect(attributes[:country]).to be_a String
 
