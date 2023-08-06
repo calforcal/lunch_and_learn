@@ -52,5 +52,14 @@ RSpec.describe "Learning Resources" do
         end
       end
     end
+
+    describe "edge cases" do
+      it "returns empty objects if no images or video is found", :vcr do
+        get api_v1_learning_resources_path(country: 'XXXXYWYWYWYWYWYWBBHFHS')
+
+        require 'pry'; binding.pry
+        expect(response).to be_successful
+      end
+    end
   end
 end
