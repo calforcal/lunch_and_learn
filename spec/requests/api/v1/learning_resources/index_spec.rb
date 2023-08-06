@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Learning Resources" do
   describe "Fetch Learning Resource" do
     describe "happy paths" do
-      it "returns the information for a given country" do
+      it "returns the information for a given country", :vcr do
         get api_v1_learning_resources_path(country: 'singapore')
 
         expect(response).to be_successful

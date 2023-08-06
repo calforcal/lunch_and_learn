@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe YoutubeMediaService do
   describe "#movie_info" do
-    it "can get educational video info by country" do
+    it "can get educational video info by country", :vcr do
       search = "singapore"
       response = YoutubeMediaService.new.movie_info(search)
 
