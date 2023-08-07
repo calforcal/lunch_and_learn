@@ -21,4 +21,28 @@ RSpec.describe CountriesService do
       end
     end
   end
+
+  describe "#get_countries_city" do
+    it "can get a countries city" do
+      service = CountriesService.new.get_countries_city("Nigeria")
+
+      expect(service).to be_an Array
+
+      info = service.first
+
+      expect(info).to have_key(:name)
+      expect(info[:name]).to be_a Hash
+
+      expect(info).to have_key(:tld)
+      expect(info[:tld]).to be_an Array
+
+      expect(info).to have_key(:status)
+      expect(info[:status]).to be_a String
+
+      expect(info).to have_key(:capital)
+      expect(info[:capital]).to be_an Array
+
+      expect(info[:capital].first).to be_a String
+    end
+  end
 end
