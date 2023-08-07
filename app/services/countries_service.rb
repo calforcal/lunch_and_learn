@@ -3,6 +3,10 @@ class CountriesService
     get_url('all')
   end
 
+  def get_countries_city(search)
+    get_url("name/#{search}")
+  end
+
   def get_url(url)
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
