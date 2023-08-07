@@ -4,6 +4,11 @@ class CountriesFacade
     details.map { |result| Country.new(result) }
   end
 
+  def countries_city(search)
+    details = service.get_countries_city(search)
+    City.new(details.first)
+  end
+
   def service
     CountriesService.new
   end
