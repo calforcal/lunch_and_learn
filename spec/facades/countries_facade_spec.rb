@@ -13,4 +13,15 @@ RSpec.describe CountriesFacade do
       end
     end
   end
+
+  describe "countries_city" do
+    it "gets a countries city name" do
+      city = CountriesFacade.new.countries_city("Nigeria")
+
+      expect(city).to be_a City
+
+      expect(city.name).to be_a String
+      expect(city.name).to eq("Abuja")
+    end
+  end
 end
