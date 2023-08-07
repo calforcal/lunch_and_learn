@@ -23,7 +23,7 @@ RSpec.describe CountriesService do
   end
 
   describe "#get_countries_city" do
-    it "can get a countries city" do
+    it "can get a countries city", :vcr do
       service = CountriesService.new.get_countries_city("Nigeria")
 
       expect(service).to be_an Array

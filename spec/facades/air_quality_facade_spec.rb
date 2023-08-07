@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AirQualityFacade do
   describe "air_quality_by_city" do
-    it "gets an air quality object for a given city" do
+    it "gets an air quality object for a given city", :vcr do
 
       air_quality = AirQualityFacade.new.air_quality_by_city("Nigeria")
 

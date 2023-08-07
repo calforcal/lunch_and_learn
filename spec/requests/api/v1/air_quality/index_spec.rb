@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'AirQuality' do
   describe "Get Air Quaility for Capital City" do
     describe "happy paths" do
-      it "can get the air quality for a given countries capital city" do
+      it "can get the air quality for a given countries capital city", :vcr do
         get api_v1_air_quality_index_path(country: "Nigeria")
 
         expect(response).to be_successful

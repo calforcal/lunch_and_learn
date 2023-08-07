@@ -15,7 +15,7 @@ RSpec.describe CountriesFacade do
   end
 
   describe "countries_city" do
-    it "gets a countries city name" do
+    it "gets a countries city name", :vcr do
       city = CountriesFacade.new.countries_city("Nigeria")
 
       expect(city).to be_a City

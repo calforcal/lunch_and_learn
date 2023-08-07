@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'AirQualityService' do
   describe "#get_air_quality_info" do
-    it "can receive a city and return its Air Quality info" do
+    it "can receive a city and return its Air Quality info", :vcr do
       city = City.new({capital: ['Abuja']})
       service = AirQualityService.new
       search = service.get_air_quality_info(city)
