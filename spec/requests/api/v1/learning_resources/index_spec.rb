@@ -57,8 +57,21 @@ RSpec.describe "Learning Resources" do
       it "returns empty objects if no images or video is found", :vcr do
         get api_v1_learning_resources_path(country: 'XXXXYWYWYWYWYWYWBBHFHS')
 
-        require 'pry'; binding.pry
         expect(response).to be_successful
+
+        learning_resource = JSON.parse(response.body, symbolize_names: true)
+
+        expect(learning_resource).to have_key(:data)
+        expect(learning_resource[:data]).to be_a Hash
+
+        expect(learning_resource[:data]).to have_key(:attributes)
+        expect(learning_resource[:data][:attributes]).to be_a Hash
+
+        expect(learning_resource[:data][:attributes]).to have_key(:video)
+        expect(learning_resource[:data][:attributes][:video]).to eq({})
+
+        expect(learning_resource[:data][:attributes]).to have_key(:images)
+        expect(learning_resource[:data][:attributes][:images]).to eq([])
       end
     end
   end
