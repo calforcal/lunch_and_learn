@@ -70,6 +70,25 @@ RSpec.describe "Users" do
         expect(error[:errors].first[:status]).to eq("404")
         expect(error[:errors].first[:title]).to eq("Validation failed: Email has already been taken")
       end
+
+      it "produces an error if the users passwords don't match" do
+        user_params = {
+          "name": "Odell",
+          "email": "goodboy@ruffruff.com",
+          "password": "test1",
+          "password_confirmation": "toots"
+        }
+
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_users_path, headers: headers, params: JSON.generate(user_params)
+
+        expect(response).to_not be_successful
+
+        error = JSON.parse(response.body, symbolize_names: true)
+
+        expect(error[:errors].first[:status]).to eq("404")
+        expect(error[:errors].first[:title]).to eq("Validation failed: Password confirmation doesn't match Password")
+      end
     end
   end
 end
