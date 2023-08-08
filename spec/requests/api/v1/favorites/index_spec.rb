@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Favorites do
+RSpec.describe Favorite do
   describe "Fetch a Users Favorites" do
     before(:each) do
       user_params = {
