@@ -90,7 +90,7 @@ RSpec.describe Favorite do
     end
 
     describe "sad paths" do
-      it "returns an empty array if there are no favorites" do
+      it "returns an empty array if the API key is not found" do
         get api_v1_favorites_path(api_key: "XYZWERD")
   
         expect(response).to_not be_successful
