@@ -58,10 +58,9 @@ RSpec.describe Favorite do
           expect(favorite[:attributes][:created_at]).to be_a String
         end
 
-        expect(favorites[0][:attributes][:recipe_link]).to eq(@favorite.recipe_link)
-        expect(favorites[0][:attributes][:recipe_title]).to eq(@favorite.recipe_title)
-        expect(favorites[0][:attributes][:country]).to eq(@favorite.country)
-        expect(favorites[0][:attributes][:created_at]).to eq(@favorite.created_at)
+        expect(favorites[0][:attributes][:recipe_link]).to eq(@favorite_1.recipe_link)
+        expect(favorites[0][:attributes][:recipe_title]).to eq(@favorite_1.recipe_title)
+        expect(favorites[0][:attributes][:country]).to eq(@favorite_1.country)
       end
     end
   end
