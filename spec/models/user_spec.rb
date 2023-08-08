@@ -6,4 +6,8 @@ RSpec.describe User do
     it { should have_secure_password :password }
     it { should validate_uniqueness_of :email }
   end
+
+  describe "associations" do
+    it { should have_many :favorites }
+  end
 end
