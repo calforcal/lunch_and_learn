@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[create]
       resources :air_quality, only: %i[index]
       resources :sessions, only: %i[create]
-      resources :favorites, only: %i[create]
+      resources :favorites, only: %i[index create]
     end
   end
 end
