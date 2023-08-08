@@ -48,5 +48,61 @@ RSpec.describe "Sessions" do
         expect(user[:attributes][:api_key]).to be_a String
       end
     end
+
+    describe "sad paths" do
+      it "produces an error if password is wrong" do
+        user_params = {
+          "name": "Odell",
+          "email": "goodboy@ruffruff.com",
+          "password": "test",
+          "password_confirmation": "test"
+        }
+
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_users_path, headers: headers, params: JSON.generate(user_params)
+
+        user_params = {
+          "email": "goodboy@ruffruff.com",
+          "password": "bad2test"
+        }
+
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_sessions_path, headers: headers, params: JSON.generate(user_params)
+
+        expect(response).to_not be_successful
+
+        parsed = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(401)
+        expect(parsed[:error]).to eq("Invalid email or password")
+      end
+
+      it "produces an error if email can't be found" do
+        user_params = {
+          "name": "Odell",
+          "email": "goodboy@ruffruff.com",
+          "password": "test",
+          "password_confirmation": "test"
+        }
+
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_users_path, headers: headers, params: JSON.generate(user_params)
+
+        user_params = {
+          "email": "doesntexist@aol.com",
+          "password": "bad2test"
+        }
+
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_sessions_path, headers: headers, params: JSON.generate(user_params)
+
+        expect(response).to_not be_successful
+
+        parsed = JSON.parse(response.body, symbolize_names: true)
+
+        expect(response.status).to eq(401)
+        expect(parsed[:error]).to eq("Invalid email or password")
+      end
+    end
   end
 end
