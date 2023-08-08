@@ -62,6 +62,45 @@ RSpec.describe Favorite do
         expect(favorites[0][:attributes][:recipe_title]).to eq(@favorite_1.recipe_title)
         expect(favorites[0][:attributes][:country]).to eq(@favorite_1.country)
       end
+
+      it "returns an empty array if there are no favorites" do
+        user_params = {
+          "name": "Odell",
+          "email": "badboy@ruffruff.com",
+          "password": "test",
+          "password_confirmation": "test"
+        }
+  
+        headers = { 'Content-Type' => 'application/json', 'Accept' => 'application/json'}
+        post api_v1_users_path, headers: headers, params: JSON.generate(user_params)
+  
+        @user_2 = User.last
+  
+        get api_v1_favorites_path(api_key: @user_2.api_key)
+  
+        expect(response).to be_successful
+        expect(response.status).to eq(200)
+  
+        parsed = JSON.parse(response.body, symbolize_names: true)
+
+        expect(parsed).to have_key(:data)
+        expect(parsed[:data]).to be_an Array
+        expect(parsed[:data]).to eq([])
+      end
+    end
+
+    describe "sad paths" do
+      it "returns an empty array if there are no favorites" do
+        get api_v1_favorites_path(api_key: "XYZWERD")
+  
+        expect(response).to_not be_successful
+        expect(response.status).to eq(401)
+  
+        parsed = JSON.parse(response.body, symbolize_names: true)
+
+        expect(parsed).to have_key(:error)
+        expect(parsed[:error]).to eq("Unauthorized request, please try again.")
+      end
     end
   end
 end
