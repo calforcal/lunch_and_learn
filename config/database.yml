@@ -81,6 +81,8 @@ test:
 #
 production:
   <<: *default
-  database: lunch_and_learn_production
-  username: lunch_and_learn
-  password: <%= ENV["LUNCH_AND_LEARN_DATABASE_PASSWORD"] %>
+  database: <%= ENV["RDS_DATABASE"] %>
+  username: <%= ENV["RDS_USERNAME"] %>
+  password: <%= ENV["RDS_PASSWORD"] %>
+  host: <%= ENV["RDS_HOST"] %>
+  port: 5432
